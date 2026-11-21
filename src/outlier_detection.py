@@ -50,7 +50,34 @@ outlier_mask = scores > threshold
 detected_outliers = points[outlier_mask]
 cleaned_points = points[~outlier_mask]
 
-# Print results
+injected_mask = np.zeros(len(points), dtype=bool)
+injected_mask[-10:] = True
+
+true_positives = np.sum(outlier_mask & injected_mask)
+
+false_positives = np.sum(outlier_mask & ~injected_mask)
+
+false_negatives = np.sum(~outlier_mask & injected_mask)
+
+precision = (
+    true_positives / (true_positives + false_positives)
+    if (true_positives + false_positives) > 0
+    else 0
+)
+
+recall = true_positives / (
+    true_positives + false_negatives
+)
+
+print("\nOutlier Detection Validation")
+print("----------------------------")
+print("Injected candidate outliers:", 10)
+print("Injected points detected:", true_positives)
+print("Regular points flagged:", false_positives)
+print("Injected points missed:", false_negatives)
+print(f"Precision: {precision:.4f}")
+print(f"Recall: {recall:.4f}")
+
 print("Original dataset size:", len(points))
 print("Outlier threshold:", round(threshold, 4))
 print("Number of detected outliers:", len(detected_outliers))

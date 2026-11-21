@@ -5,7 +5,16 @@ from pathlib import Path
 
 project_folder = Path(__file__).resolve().parent.parent
 
-data_file = project_folder / "data" / "dataset1.csv"
+dataset_number = int(input("Enter dataset number (1, 2, or 3): "))
+
+if dataset_number not in [1, 2, 3]:
+    raise ValueError("Dataset number must be 1, 2, or 3.")
+
+data_file = (
+    project_folder / "data" /
+    f"dataset{dataset_number}.csv"
+)
+
 df = pd.read_csv(data_file)
 points = df[["X", "Y", "Z"]].to_numpy()
 
@@ -58,7 +67,8 @@ cleaned_df = pd.DataFrame(
     cleaned_points, columns=["X", "Y", "Z"]
 )
 cleaned_df.to_csv(
-    project_folder / "data" / "dataset1_cleaned.csv",
+    project_folder / "data" /
+    f"dataset{dataset_number}_cleaned.csv",
     index=False
 )
 
@@ -83,11 +93,12 @@ if len(detected_outliers) > 0:
 ax.set_xlabel("X")
 ax.set_ylabel("Y")
 ax.set_zlabel("Z")
-ax.set_title("Dataset 1: Outlier Detection")
+ax.set_title(f"Dataset {dataset_number}: Outlier Detection")
 ax.legend()
 
 plt.savefig(
-    project_folder / "results" / "dataset1_outliers.png",
+    project_folder / "results" /
+    f"dataset{dataset_number}_outliers.png",
     dpi=300,
     bbox_inches="tight"
 )

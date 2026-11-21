@@ -5,7 +5,16 @@ from pathlib import Path
 
 project_folder = Path(__file__).resolve().parent.parent
 
-data_file = project_folder / "data" / "dataset1_cleaned.csv"
+dataset_number = int(input("Enter dataset number (1, 2, or 3): "))
+
+if dataset_number not in [1, 2, 3]:
+    raise ValueError("Dataset number must be 1, 2, or 3.")
+
+data_file = (
+    project_folder / "data" /
+    f"dataset{dataset_number}_cleaned.csv"
+)
+
 df = pd.read_csv(data_file)
 points = df[["X", "Y", "Z"]].to_numpy()
 
@@ -131,7 +140,7 @@ for method in methods:
 
     results_df.to_csv(
         project_folder / "results" /
-        f"dataset1_hierarchical_{method}.csv",
+        f"dataset{dataset_number}_hierarchical_{method}.csv",
         index=False
     )
 
@@ -157,14 +166,14 @@ for method in methods:
     ax.set_ylabel("Y")
     ax.set_zlabel("Z")
     ax.set_title(
-        f"Hierarchical Clustering - {method.title()} "
-        f"Linkage (k={k})"
+        f"Dataset {dataset_number}: Hierarchical Clustering\n"
+        f"{method.title()} Linkage (k={k})"
     )
     ax.legend()
 
     plt.savefig(
         project_folder / "results" /
-        f"dataset1_hierarchical_{method}.png",
+        f"dataset{dataset_number}_hierarchical_{method}.png",
         dpi=300,
         bbox_inches="tight"
     )

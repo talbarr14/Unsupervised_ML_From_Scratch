@@ -4,6 +4,11 @@ from pathlib import Path
 
 project_folder = Path(__file__).resolve().parent.parent
 
+dataset_number = int(input("Enter dataset number (1, 2, or 3): "))
+
+if dataset_number not in [1, 2, 3]:
+    raise ValueError("Dataset number must be 1, 2, or 3.")
+
 def euclidean_distance(point1, point2):
     return np.sqrt(np.sum((point1 - point2) ** 2))
 
@@ -64,11 +69,11 @@ def silhouette_score(points, labels):
 
 
 result_files = {
-    "K-means": "dataset1_kmeans.csv",
-    "Single Linkage": "dataset1_hierarchical_single.csv",
-    "Complete Linkage": "dataset1_hierarchical_complete.csv",
-    "Average Linkage": "dataset1_hierarchical_average.csv",
-    "Centroid Linkage": "dataset1_hierarchical_centroid.csv"
+    "K-means": f"dataset{dataset_number}_kmeans.csv",
+    "Single Linkage": f"dataset{dataset_number}_hierarchical_single.csv",
+    "Complete Linkage": f"dataset{dataset_number}_hierarchical_complete.csv",
+    "Average Linkage": f"dataset{dataset_number}_hierarchical_average.csv",
+    "Centroid Linkage": f"dataset{dataset_number}_hierarchical_centroid.csv"
 }
 
 print("\nSilhouette Coefficient Comparison")

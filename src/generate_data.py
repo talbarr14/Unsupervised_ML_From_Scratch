@@ -48,4 +48,10 @@ ax.set_ylabel("Y")
 ax.set_zlabel("Z")
 ax.set_title("Dataset 1: 500 Points in 3D Space")
 
+plt.savefig(
+    project_folder / "results" / "dataset1_original.png",
+    dpi=300,
+    bbox_inches="tight"
+)
+
 plt.show()

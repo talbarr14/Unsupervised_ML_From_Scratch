@@ -1,0 +1,4 @@
+Dataset,Original Points,Outliers Removed,Cleaned Points,K-means Iterations,K-means WCSS
+Dataset 1,500,14,486,2,1373.4413
+Dataset 2,500,19,481,6,3262.7565
+Dataset 3,500,15,485,3,5064.9797

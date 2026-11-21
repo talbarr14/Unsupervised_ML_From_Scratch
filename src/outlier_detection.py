@@ -35,7 +35,7 @@ q1 = np.percentile(scores, 25)
 q3 = np.percentile(scores, 75)
 iqr = q3 - q1
 
-threshold = q3 + 1.5 * iqr
+threshold = q3 + 3.0 * iqr
 
 outlier_mask = scores > threshold
 detected_outliers = points[outlier_mask]
